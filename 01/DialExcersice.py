@@ -28,6 +28,8 @@ def main():
 def rotate_left_dial(rotation):
     global dial
     difference = 0
+    if (rotation > 100):
+        rotation = rotation % 100
     if (rotation == dial):
         dial = 0
         return dial
@@ -43,6 +45,9 @@ def rotate_right_dial(rotation):
     global dial
     temp_dial = dial + rotation
     difference = 0
+    if (rotation > 100):
+        rotation = rotation % 100
+        temp_dial = dial + rotation
     if (temp_dial > 99):
         difference = temp_dial - 100
         dial = 0 + difference
