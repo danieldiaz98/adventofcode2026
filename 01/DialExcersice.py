@@ -1,10 +1,6 @@
 data_file = open('elvesDataExample.txt', 'r', encoding="utf-8")
 
 dial = 50
-
-''' //TODO: Improve code so that it can take higher values
-Allowing the dial to complete more than one full rotation
-Examples: L150 R250 '''
     
 def main():
     count_zeros = 0
@@ -27,33 +23,12 @@ def main():
     
 def rotate_left_dial(rotation):
     global dial
-    difference = 0
-    if (rotation > 100):
-        rotation = rotation % 100
-    if (rotation == dial):
-        dial = 0
-        return dial
-    if (rotation > dial):
-        difference = (rotation - dial)
-        dial = 100 - difference
-        return dial
-    if (rotation < dial):
-        dial = dial - rotation
-        return dial
+    dial = (dial - rotation) % 100
+    return dial
 
 def rotate_right_dial(rotation):
     global dial
-    temp_dial = dial + rotation
-    difference = 0
-    if (rotation > 100):
-        rotation = rotation % 100
-        temp_dial = dial + rotation
-    if (temp_dial > 99):
-        difference = temp_dial - 100
-        dial = 0 + difference
-    else :
-        dial = temp_dial    
-    return dial
+    dial = (dial + rotation) % 100
 
 if __name__ == "__main__":
     main()
