@@ -1,34 +1,41 @@
 data_file = open('elvesDataExample.txt', 'r', encoding="utf-8")
 
 dial = 50
-    
+count_zeros = 0
+
 def main():
-    count_zeros = 0
+    global count_zeros
     for line in data_file:
-        if dial == 0:
-            count_zeros += 1
-        print("DIAL= " + str(dial))
-        print("ZEROS= " + str(count_zeros))
-        print(line)
-        if (line[0] == 'L'):
-            number = int(line.replace('L',''))
+        line = line.strip()
+        if not line:
+            continue
+            
+        if line[0] == 'L':
+            number = int(line[1:])
             rotate_left_dial(number)
             
-        elif (line[0] == 'R'):
-            number = int(line.replace('R',''))
+        elif line[0] == 'R':
+            number = int(line[1:])
             rotate_right_dial(number)
 
-    print(dial)
-    print("ZEROS= " + str(count_zeros))
+    print("DIAL FINAL = " + str(dial))
+    print("ZEROS TOTALES = " + str(count_zeros))
     
 def rotate_left_dial(rotation):
-    global dial
+    global dial, count_zeros
+    tmp_dial = dial
     dial = (dial - rotation) % 100
-    return dial
+    if tmp_dial > 0:
+        if rotation >= tmp_dial:
+            count_zeros += 1 + ((rotation - tmp_dial) // 100)
+    else:
+        count_zeros += rotation // 100
 
 def rotate_right_dial(rotation):
-    global dial
+    global dial, count_zeros
+    tmp_dial = dial
     dial = (dial + rotation) % 100
+    count_zeros += (tmp_dial + rotation) // 100
 
 if __name__ == "__main__":
     main()
