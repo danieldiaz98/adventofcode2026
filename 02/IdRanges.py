@@ -1,3 +1,4 @@
+import re
 
 def main():
     line = ""
@@ -20,11 +21,7 @@ def process_range(id_range):
     return range(int(l),int(r) + 1)
 
 def is_valid(r):
-    s = str(r)
-    if len(s) % 2 == 1:
-        return True
-    middle = len(s) // 2
-    return s[:middle] != s[middle:]
+    return not re.match(r"^(\d+)\1+$", str(r))
 
 if __name__ == "__main__":
     main()
